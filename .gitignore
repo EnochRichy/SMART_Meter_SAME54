@@ -1,0 +1,18 @@
+# MPLAB X build outputs
+SAME54_OV7670.X/build/
+SAME54_OV7670.X/dist/
+SAME54_OV7670.X/debug/
+SAME54_OV7670.X/defmplabxtrace.log
+SAME54_OV7670.X/defmplabxtrace.log.inx
+
+# MPLAB X private/user-specific project files
+SAME54_OV7670.X/nbproject/private/
+
+# MCC internal generated-flag tracking files
+SAME54_OV7670.X/.generated_files/
+
+# MCC auto-save (keep the generated-success manifest)
+SAME54_OV7670.X/mcc-manifest-autosave.yml
+
+# packs (large Microchip device support files, can be re-downloaded)
+src/packs/
