@@ -13,6 +13,3 @@ SAME54_OV7670.X/.generated_files/
 
 # MCC auto-save (keep the generated-success manifest)
 SAME54_OV7670.X/mcc-manifest-autosave.yml
-
-# packs (large Microchip device support files, can be re-downloaded)
-src/packs/
