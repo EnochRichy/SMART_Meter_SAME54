@@ -59,11 +59,12 @@ void NVIC_Initialize( void )
 
     /* Enable the interrupt sources and configure the priorities as configured
      * from within the "Interrupt Manager" of MHC. */
-    NVIC_SetPriority(EIC_EXTINT_14_IRQn, 7);
+    /* Camera timing — highest priority so USB IRQs cannot delay HSYNC/VSYNC */
+    NVIC_SetPriority(EIC_EXTINT_14_IRQn, 1);   /* HSYNC */
     NVIC_EnableIRQ(EIC_EXTINT_14_IRQn);
-    NVIC_SetPriority(EIC_EXTINT_15_IRQn, 7);
+    NVIC_SetPriority(EIC_EXTINT_15_IRQn, 1);   /* VSYNC */
     NVIC_EnableIRQ(EIC_EXTINT_15_IRQn);
-    NVIC_SetPriority(DMAC_0_IRQn, 7);
+    NVIC_SetPriority(DMAC_0_IRQn, 1);          /* pixel DMA */
     NVIC_EnableIRQ(DMAC_0_IRQn);
     NVIC_SetPriority(SERCOM3_0_IRQn, 7);
     NVIC_EnableIRQ(SERCOM3_0_IRQn);
@@ -73,13 +74,14 @@ void NVIC_Initialize( void )
     NVIC_EnableIRQ(SERCOM3_2_IRQn);
     NVIC_SetPriority(SERCOM3_OTHER_IRQn, 7);
     NVIC_EnableIRQ(SERCOM3_OTHER_IRQn);
-    NVIC_SetPriority(USB_OTHER_IRQn, 7);
+    /* USB — lower priority so camera ISRs always preempt */
+    NVIC_SetPriority(USB_OTHER_IRQn, 4);
     NVIC_EnableIRQ(USB_OTHER_IRQn);
-    NVIC_SetPriority(USB_SOF_HSOF_IRQn, 7);
+    NVIC_SetPriority(USB_SOF_HSOF_IRQn, 4);
     NVIC_EnableIRQ(USB_SOF_HSOF_IRQn);
-    NVIC_SetPriority(USB_TRCPT0_IRQn, 7);
+    NVIC_SetPriority(USB_TRCPT0_IRQn, 4);
     NVIC_EnableIRQ(USB_TRCPT0_IRQn);
-    NVIC_SetPriority(USB_TRCPT1_IRQn, 7);
+    NVIC_SetPriority(USB_TRCPT1_IRQn, 4);
     NVIC_EnableIRQ(USB_TRCPT1_IRQn);
 
     /* Enable Usage fault */

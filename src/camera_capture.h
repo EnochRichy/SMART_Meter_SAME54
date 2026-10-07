@@ -27,6 +27,8 @@ void camera_capture_init(uint8_t *frame_buf);
 
 void camera_capture_start(void);
 void camera_capture_stop(void);
+void camera_capture_pause(void);    /* freeze DMA mid-stream, hold buffer */
+void camera_capture_unpause(void);  /* resume from line 0 of next frame   */
 
 /* Re-arm after stop() without touching sensor or clocks. */
 void camera_capture_resume(void);

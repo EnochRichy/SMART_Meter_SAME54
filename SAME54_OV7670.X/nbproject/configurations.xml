@@ -82,10 +82,22 @@
             <itemPath>../src/config/default/system/system_module.h</itemPath>
           </logicalFolder>
           <logicalFolder name="usb" displayName="usb" projectFiles="true">
+            <logicalFolder name="src" displayName="src" projectFiles="true">
+              <itemPath>../src/config/default/usb/src/usb_device_local.h</itemPath>
+              <itemPath>../src/config/default/usb/src/usb_device_mapping.h</itemPath>
+              <itemPath>../src/config/default/usb/src/usb_device_function_driver.h</itemPath>
+              <itemPath>../src/config/default/usb/src/usb_external_dependencies.h</itemPath>
+              <itemPath>../src/config/default/usb/src/usb_device_cdc_local.h</itemPath>
+            </logicalFolder>
             <itemPath>../src/config/default/usb/usb_host_client_driver.h</itemPath>
             <itemPath>../src/config/default/usb/usb_host_hub_interface.h</itemPath>
             <itemPath>../src/config/default/usb/usb_host.h</itemPath>
             <itemPath>../src/config/default/usb/usb_hub.h</itemPath>
+            <itemPath>../src/config/default/usb/usb_device.h</itemPath>
+            <itemPath>../src/config/default/usb/usb_common.h</itemPath>
+            <itemPath>../src/config/default/usb/usb_chapter_9.h</itemPath>
+            <itemPath>../src/config/default/usb/usb_device_cdc.h</itemPath>
+            <itemPath>../src/config/default/usb/usb_cdc.h</itemPath>
           </logicalFolder>
           <itemPath>../src/config/default/device.h</itemPath>
           <itemPath>../src/config/default/device_cache.h</itemPath>
@@ -251,10 +263,15 @@
           <itemPath>SAME54_OV7670_default/components/tc0.yml</itemPath>
           <itemPath>SAME54_OV7670_default/components/HarmonyCore.yml</itemPath>
           <itemPath>SAME54_OV7670_default/components/evsys.yml</itemPath>
+          <itemPath>SAME54_OV7670_default/components/usb_device_vendor.yml</itemPath>
           <itemPath>SAME54_OV7670_default/components/sercom2.yml</itemPath>
           <itemPath>SAME54_OV7670_default/components/nvmctrl.yml</itemPath>
           <itemPath>SAME54_OV7670_default/components/sercom3.yml</itemPath>
           <itemPath>SAME54_OV7670_default/components/eic.yml</itemPath>
+          <itemPath>SAME54_OV7670_default/components/usb_device_cdc_0.yml</itemPath>
+          <itemPath>SAME54_OV7670_default/components/usb_device.yml</itemPath>
+          <itemPath>SAME54_OV7670_default/components/usb_device_vendor_0.yml</itemPath>
+          <itemPath>SAME54_OV7670_default/components/usb_device_cdc.yml</itemPath>
         </logicalFolder>
         <itemPath>SAME54_OV7670_default/mcc-config.mc4</itemPath>
       </logicalFolder>
@@ -337,12 +354,21 @@
               <itemPath>../src/config/default/system/int/src/sys_int.c</itemPath>
             </logicalFolder>
           </logicalFolder>
+          <logicalFolder name="usb" displayName="usb" projectFiles="true">
+            <logicalFolder name="src" displayName="src" projectFiles="true">
+              <itemPath>../src/config/default/usb/src/usb_device.c</itemPath>
+              <itemPath>../src/config/default/usb/src/usb_device_cdc.c</itemPath>
+              <itemPath>../src/config/default/usb/src/usb_device_cdc_acm.c</itemPath>
+              <itemPath>../src/config/default/usb/src/usb_device_endpoint_functions.c</itemPath>
+            </logicalFolder>
+          </logicalFolder>
           <itemPath>../src/config/default/initialization.c</itemPath>
           <itemPath>../src/config/default/interrupts.c</itemPath>
           <itemPath>../src/config/default/exceptions.c</itemPath>
           <itemPath>../src/config/default/startup_xc32.c</itemPath>
           <itemPath>../src/config/default/libc_syscalls.c</itemPath>
           <itemPath>../src/config/default/tasks.c</itemPath>
+          <itemPath>../src/config/default/usb_device_init_data.c</itemPath>
         </logicalFolder>
       </logicalFolder>
       <itemPath>../src/main.c</itemPath>

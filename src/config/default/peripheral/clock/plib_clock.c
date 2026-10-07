@@ -132,6 +132,16 @@ static void GCLK2_Initialize(void)
     }
 }
 
+static void GCLK3_Initialize(void)
+{
+    GCLK_REGS->GCLK_GENCTRL[3] = GCLK_GENCTRL_DIV(1U) | GCLK_GENCTRL_SRC(6U) | GCLK_GENCTRL_GENEN_Msk;
+
+    while((GCLK_REGS->GCLK_SYNCBUSY & GCLK_SYNCBUSY_GENCTRL_GCLK3) == GCLK_SYNCBUSY_GENCTRL_GCLK3)
+    {
+        /* wait for the Generator 3 synchronization */
+    }
+}
+
 static void GCLK4_Initialize(void)
 {
     GCLK_REGS->GCLK_GENCTRL[4] = GCLK_GENCTRL_DIV(1U) | GCLK_GENCTRL_SRC(6U) | GCLK_GENCTRL_OE_Msk | GCLK_GENCTRL_GENEN_Msk;
@@ -155,6 +165,7 @@ void CLOCK_Initialize (void)
 
     DFLL_Initialize();
     GCLK2_Initialize();
+    GCLK3_Initialize();
     GCLK4_Initialize();
     FDPLL0_Initialize();
     GCLK0_Initialize();
@@ -177,7 +188,7 @@ void CLOCK_Initialize (void)
         /* Wait for synchronization */
     }
     /* Selection of the Generator and write Lock for USB */
-    GCLK_REGS->GCLK_PCHCTRL[10] = GCLK_PCHCTRL_GEN(0x1U)  | GCLK_PCHCTRL_CHEN_Msk;
+    GCLK_REGS->GCLK_PCHCTRL[10] = GCLK_PCHCTRL_GEN(0x3U)  | GCLK_PCHCTRL_CHEN_Msk;
 
     while ((GCLK_REGS->GCLK_PCHCTRL[10] & GCLK_PCHCTRL_CHEN_Msk) != GCLK_PCHCTRL_CHEN_Msk)
     {

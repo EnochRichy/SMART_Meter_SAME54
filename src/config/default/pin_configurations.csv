@@ -1,7 +1,7 @@
 Pin Number,Pin ID,Custom Name,Function,Mode, Direction,Latch,Pull Up,Pull Down,Drive Strength
 1,PA00,,Available,,,,,,NORMAL
 2,PA01,,Available,,,,,,NORMAL
-3,PC00,,Available,,,,,,NORMAL
+3,PC00,USB_VBUS_SENSE,GPIO,Digital,In,n/a,No,No,NORMAL
 4,PC01,,Available,,,,,,NORMAL
 7,PC02,,Available,,,,,,NORMAL
 8,PC03,,Available,,,,,,NORMAL

@@ -65,6 +65,15 @@
 // *****************************************************************************
 // *****************************************************************************
 
+/*** Macros for USB_VBUS_SENSE pin ***/
+#define USB_VBUS_SENSE_Set()               (PORT_REGS->GROUP[2].PORT_OUTSET = ((uint32_t)1U << 0U))
+#define USB_VBUS_SENSE_Clear()             (PORT_REGS->GROUP[2].PORT_OUTCLR = ((uint32_t)1U << 0U))
+#define USB_VBUS_SENSE_Toggle()            (PORT_REGS->GROUP[2].PORT_OUTTGL = ((uint32_t)1U << 0U))
+#define USB_VBUS_SENSE_OutputEnable()      (PORT_REGS->GROUP[2].PORT_DIRSET = ((uint32_t)1U << 0U))
+#define USB_VBUS_SENSE_InputEnable()       (PORT_REGS->GROUP[2].PORT_DIRCLR = ((uint32_t)1U << 0U))
+#define USB_VBUS_SENSE_Get()               (((PORT_REGS->GROUP[2].PORT_IN >> 0U)) & 0x01U)
+#define USB_VBUS_SENSE_PIN                  PORT_PIN_PC00
+
 /*** Macros for D4 pin ***/
 #define D4_Set()               (PORT_REGS->GROUP[1].PORT_OUTSET = ((uint32_t)1U << 4U))
 #define D4_Clear()             (PORT_REGS->GROUP[1].PORT_OUTCLR = ((uint32_t)1U << 4U))

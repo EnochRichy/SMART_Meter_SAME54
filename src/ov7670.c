@@ -43,7 +43,7 @@ void ov7670_init_rgb565_qqvga(void)
     cam_hal_i2c_write(OV7670_REG_VPT,  0xA5);
 
     cam_hal_i2c_write(OV7670_REG_RGB444, 0x00);
-    cam_hal_i2c_write(OV7670_REG_TSLB,   0x08);             /* byte-swap for LE decode */
+    cam_hal_i2c_write(OV7670_REG_TSLB,   0x00);             /* byte-swap for LE decode */
     cam_hal_i2c_write(OV7670_REG_COM13,  0x88);
     cam_hal_i2c_write(OV7670_REG_PCLK_DELAY, 0x02);
     cam_hal_i2c_write(OV7670_REG_COM15,  0xD0);             /* full-range RGB565 */

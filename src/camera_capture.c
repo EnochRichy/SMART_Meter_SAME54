@@ -19,6 +19,12 @@
 #include "camera_config.h"
 #include "camera_hal.h"
 #include "ov7670.h"
+#include <stdio.h>
+
+static volatile uint32_t s_dbg_hsync_count = 0;
+static volatile uint32_t s_dbg_vsync_count = 0;
+static volatile uint32_t s_dbg_dma_done_count = 0;
+static uint32_t          s_dbg_svc_calls = 0;
 
 /* Two flags on purpose: s_dma_done is raised in ISR context and consumed by
  * service(); s_frame_visible is raised by service() only after cache
@@ -27,6 +33,7 @@ static uint8_t          *s_frame_buf     = 0;
 static volatile bool     s_dma_done      = false;
 static volatile bool     s_frame_visible = false;
 static volatile uint32_t s_line_index    = 0;
+static volatile bool     s_paused        = false;
 
 #define CAM_LINE_BYTES  ((uint32_t)(CAM_FRAME_WIDTH * 2U))
 
@@ -38,6 +45,9 @@ static void on_dma_block_complete(void)
 
 static void on_hsync(void)
 {
+    s_dbg_hsync_count++;
+    if (s_paused)
+        return;
     if (s_line_index < CAM_FRAME_HEIGHT) {
         cam_hal_dma_stop();
         cam_hal_dma_configure_byte_capture(
@@ -49,14 +59,11 @@ static void on_hsync(void)
 
 static void on_vsync(void)
 {
-    /* Threshold guards against a spurious mid-frame VSYNC. Reset
-     * s_line_index unconditionally — under the per-HSYNC rearm scheme it
-     * directly indexes into the buffer, so a stale value from a partial
-     * frame (typical of the first VSYNC after boot) would misalign every
-     * subsequent rearm. */
+    s_dbg_vsync_count++;
     if (s_line_index >= CAM_END_OF_FRAME_LINE_THRESHOLD) {
         cam_hal_dma_stop();
         s_dma_done = true;
+        s_dbg_dma_done_count++;
     }
     s_line_index = 0;
 }
@@ -91,6 +98,20 @@ void camera_capture_stop(void)
     cam_hal_dma_stop();
 }
 
+void camera_capture_pause(void)
+{
+    s_paused = true;
+    cam_hal_dma_stop();
+}
+
+void camera_capture_unpause(void)
+{
+    s_paused        = false;
+    s_line_index    = 0;
+    s_dma_done      = false;
+    cam_hal_dma_configure_byte_capture(s_frame_buf, CAM_LINE_BYTES);
+}
+
 void camera_capture_resume(void)
 {
     s_line_index    = 0;
@@ -117,6 +138,13 @@ void camera_capture_release_frame(void)
 
 void camera_capture_service(void)
 {
+    if ((s_dbg_svc_calls++ & 0xFFFFFU) == 0U)
+    {
+        printf("[CAM] hsync=%lu vsync=%lu done=%lu lines=%lu paused=%d\r\n",
+               s_dbg_hsync_count, s_dbg_vsync_count,
+               s_dbg_dma_done_count, s_line_index, (int)s_paused);
+    }
+
     if (s_dma_done && !s_frame_visible) {
         s_dma_done = false;
         cam_hal_dcache_sync_after_capture(s_frame_buf, CAM_FRAME_BYTES);
